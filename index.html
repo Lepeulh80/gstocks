@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSTK - GST Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- PWA: theme color and manifest -->
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-calculator"></i>
+                        <h1>GSTK</h1>
+                    </div>
+                    <div class="header-actions">
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button class="menu-toggle" id="menuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav" id="nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li><a href="#calculator" class="nav-link active" data-section="calculator">
+                        <i class="fas fa-calculator"></i> Calculator
+                    </a></li>
+                    <li><a href="#rates" class="nav-link" data-section="rates">
+                        <i class="fas fa-percentage"></i> GST Rates
+                    </a></li>
+                    <li><a href="#reverse" class="nav-link" data-section="reverse">
+                        <i class="fas fa-undo"></i> Reverse Calculator
+                    </a></li>
+                    <li><a href="#finder" class="nav-link" data-section="finder">
+                        <i class="fas fa-search"></i> Rate Finder
+                    </a></li>
+                    <li><a href="#about" class="nav-link" data-section="about">
+                        <i class="fas fa-info-circle"></i> About
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="container">
+                <!-- Calculator Section -->
+                <section id="calculator" class="section active">
+                    <div class="section-header">
+                        <h2>GST Calculator</h2>
+                        <p>Calculate GST amount, total amount, and more</p>
+                    </div>
+                    
+                    <div class="calculator-grid">
+                        <div class="calculator-card">
+                            <h3>Basic GST Calculation</h3>
+                            <div class="form-group">
+                                <label for="amount">Amount (₹)</label>
+                                <input type="number" id="amount" placeholder="Enter amount" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="gstRate">GST Rate (%)</label>
+                                <select id="gstRate">
+                                    <option value="0">0%</option>
+                                    <option value="5">5%</option>
+                                    <option value="12">12%</option>
+                                    <option value="18" selected>18%</option>
+                                    <option value="28">28%</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="calculationType">Calculation Type</label>
+                                <select id="calculationType">
+                                    <option value="exclusive">Amount + GST</option>
+                                    <option value="inclusive">Amount (GST Inclusive)</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="calculateBtn">Calculate</button>
+                        </div>
+
+                        <div class="calculator-card">
+                            <h3>Results</h3>
+                            <div class="results">
+                                <div class="result-item">
+                                    <span class="result-label">Original Amount:</span>
+                                    <span class="result-value" id="originalAmount">₹0.00</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">GST Amount:</span>
+                                    <span class="result-value" id="gstAmount">₹0.00</span>
+                                </div>
+                                <div class="result-item total">
+                                    <span class="result-label">Total Amount:</span>
+                                    <span class="result-value" id="totalAmount">₹0.00</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">CGST (9%):</span>
+                                    <span class="result-value" id="cgstAmount">₹0.00</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">SGST (9%):</span>
+                                    <span class="result-value" id="sgstAmount">₹0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator-card">
+                        <h3>Business Type Calculator</h3>
+                        <div class="business-types">
+                            <div class="business-type">
+                                <h4>B2B (Business to Business)</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="b2bAmount">Amount (₹)</label>
+                                        <input type="number" id="b2bAmount" placeholder="Enter amount" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="b2bRate">GST Rate (%)</label>
+                                        <select id="b2bRate">
+                                            <option value="0">0%</option>
+                                            <option value="5">5%</option>
+                                            <option value="12">12%</option>
+                                            <option value="18" selected>18%</option>
+                                            <option value="28">28%</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-secondary" id="b2bCalculate">Calculate B2B</button>
+                                </div>
+                                <div class="b2b-results" id="b2bResults"></div>
+                            </div>
+
+                            <div class="business-type">
+                                <h4>B2C (Business to Consumer)</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="b2cAmount">Amount (₹)</label>
+                                        <input type="number" id="b2cAmount" placeholder="Enter amount" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="b2cRate">GST Rate (%)</label>
+                                        <select id="b2cRate">
+                                            <option value="0">0%</option>
+                                            <option value="5">5%</option>
+                                            <option value="12">12%</option>
+                                            <option value="18" selected>18%</option>
+                                            <option value="28">28%</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-secondary" id="b2cCalculate">Calculate B2C</button>
+                                </div>
+                                <div class="b2c-results" id="b2cResults"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GST Rates Section -->
+                <section id="rates" class="section">
+                    <div class="section-header">
+                        <h2>GST Rates in India</h2>
+                        <p>Current GST rates for different categories</p>
+                    </div>
+                    
+                    <div class="rates-grid">
+                        <div class="rate-card">
+                            <div class="rate-header">
+                                <h3>0% GST</h3>
+                                <span class="rate-badge zero">0%</span>
+                            </div>
+                            <ul class="rate-items">
+                                <li>Essential food items</li>
+                                <li>Books and newspapers</li>
+                                <li>Educational services</li>
+                                <li>Healthcare services</li>
+                                <li>Public transport</li>
+                            </ul>
+                        </div>
+
+                        <div class="rate-card">
+                            <div class="rate-header">
+                                <h3>5% GST</h3>
+                                <span class="rate-badge five">5%</span>
+                            </div>
+                            <ul class="rate-items">
+                                <li>Essential food items</li>
+                                <li>Medicines</li>
+                                <li>Transport services</li>
+                                <li>Small restaurants</li>
+                                <li>Economy class air travel</li>
+                            </ul>
+                        </div>
+
+                        <div class="rate-card">
+                            <div class="rate-header">
+                                <h3>12% GST</h3>
+                                <span class="rate-badge twelve">12%</span>
+                            </div>
+                            <ul class="rate-items">
+                                <li>Processed food items</li>
+                                <li>Mobile phones</li>
+                                <li>Business class air travel</li>
+                                <li>Work contracts</li>
+                                <li>Railway services</li>
+                            </ul>
+                        </div>
+
+                        <div class="rate-card">
+                            <div class="rate-header">
+                                <h3>18% GST</h3>
+                                <span class="rate-badge eighteen">18%</span>
+                            </div>
+                            <ul class="rate-items">
+                                <li>Most goods and services</li>
+                                <li>Restaurants (AC)</li>
+                                <li>IT services</li>
+                                <li>Telecom services</li>
+                                <li>Financial services</li>
+                            </ul>
+                        </div>
+
+                        <div class="rate-card">
+                            <div class="rate-header">
+                                <h3>28% GST</h3>
+                                <span class="rate-badge twenty-eight">28%</span>
+                            </div>
+                            <ul class="rate-items">
+                                <li>Luxury items</li>
+                                <li>Sin goods (tobacco, alcohol)</li>
+                                <li>Automobiles</li>
+                                <li>Entertainment services</li>
+                                <li>Five-star hotels</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reverse Calculator Section -->
+                <section id="reverse" class="section">
+                    <div class="section-header">
+                        <h2>Reverse GST Calculator</h2>
+                        <p>Calculate original amount from GST inclusive amount</p>
+                    </div>
+                    
+                    <div class="calculator-card">
+                        <div class="form-group">
+                            <label for="reverseAmount">GST Inclusive Amount (₹)</label>
+                            <input type="number" id="reverseAmount" placeholder="Enter GST inclusive amount" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="reverseRate">GST Rate (%)</label>
+                            <select id="reverseRate">
+                                <option value="0">0%</option>
+                                <option value="5">5%</option>
+                                <option value="12">12%</option>
+                                <option value="18" selected>18%</option>
+                                <option value="28">28%</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="reverseCalculate">Calculate</button>
+                        
+                        <div class="results" id="reverseResults">
+                            <div class="result-item">
+                                <span class="result-label">Original Amount:</span>
+                                <span class="result-value" id="reverseOriginalAmount">₹0.00</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">GST Amount:</span>
+                                <span class="result-value" id="reverseGstAmount">₹0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Rate Finder Section -->
+                <section id="finder" class="section">
+                    <div class="section-header">
+                        <h2>GST Rate Finder</h2>
+                        <p>Find GST rates for different goods and services</p>
+                    </div>
+                    
+                    <div class="finder-card">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search for goods or services...">
+                            <button class="btn btn-primary" id="searchBtn">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                        
+                        <div class="search-results" id="searchResults">
+                            <div class="search-item">
+                                <h4>Mobile Phones</h4>
+                                <span class="gst-rate">12%</span>
+                                <p>Smartphones and mobile devices</p>
+                            </div>
+                            <div class="search-item">
+                                <h4>Restaurant Services (AC)</h4>
+                                <span class="gst-rate">18%</span>
+                                <p>Air-conditioned restaurants</p>
+                            </div>
+                            <div class="search-item">
+                                <h4>Books</h4>
+                                <span class="gst-rate">0%</span>
+                                <p>Educational books and literature</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section id="about" class="section">
+                    <div class="section-header">
+                        <h2>About GSTK</h2>
+                        <p>Your comprehensive GST calculation solution</p>
+                    </div>
+                    
+                    <div class="about-content">
+                        <div class="about-card">
+                            <h3>Features</h3>
+                            <ul>
+                                <li>Calculate GST amount and total amount</li>
+                                <li>Support for all GST rates (0%, 5%, 12%, 18%, 28%)</li>
+                                <li>B2B and B2C calculations</li>
+                                <li>Reverse GST calculation</li>
+                                <li>GST rate finder</li>
+                                <li>Modern, responsive design</li>
+                                <li>Dark and light themes</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="about-card">
+                            <h3>GST Information</h3>
+                            <p>Goods and Services Tax (GST) is a comprehensive indirect tax levied on the supply of goods and services in India. It has replaced multiple indirect taxes and is designed to create a unified tax system.</p>
+                            
+                            <h4>GST Components:</h4>
+                            <ul>
+                                <li><strong>CGST:</strong> Central GST (collected by Central Government)</li>
+                                <li><strong>SGST:</strong> State GST (collected by State Government)</li>
+                                <li><strong>IGST:</strong> Integrated GST (for inter-state transactions)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 GSTK. All rights reserved. | Made with ❤️ for India</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+</html>

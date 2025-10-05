@@ -1,0 +1,28 @@
+{
+  "name": "gstk",
+  "version": "1.0.0",
+  "description": "GST Calculator - Calculate GST, tax amounts, and more with modern UI",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server .",
+    "build": "echo 'Build complete'"
+  },
+  "keywords": [
+    "gst",
+    "calculator",
+    "tax",
+    "india",
+    "gst-calculator",
+    "tax-calculator"
+  ],
+  "author": "GSTK Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.1"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  }
+}
