@@ -1,0 +1,2 @@
+# gstocks
+gestion des stock
